@@ -191,12 +191,12 @@ def calc_match_mismatch(alignData,quals):
     tot = numMatch + numMismatch
     totQ30 = numMatchQ30 + numMistmatchQ30
     if tot >0:
-        tf = float(tot-numMismatch)/tot
+        tf = float(numMatch)/tot
     else:
         tf = 0.0
 
     if totQ30 >0:
-        qtf = float(totQ30-numMatchQ30)/totQ30
+        qtf = float(numMatchQ30)/totQ30
     else:
         qtf = 0.0
     
@@ -245,7 +245,7 @@ for read in samFile:
         print read
         print 'len readcache is',len(readCache)
         sys.exit()
-    if numPairs % 100000 == 0:
+    if numPairs % 5000 == 0:
         print 'Did %i pairs...' % numPairs
 
 samFile.close()    
