@@ -247,9 +247,7 @@ for read in samFile:
         sys.exit()
     if numPairs % 5000 == 0:
         print 'Did %i pairs...' % numPairs
-
 samFile.close()    
 print 'Found %i read pairs' % numPairs
 print 'Found %i read pairs pass ' % numPairsPass
-
 outFile.close()
