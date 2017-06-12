@@ -227,12 +227,36 @@ for s in pairedList:
         else:
             nl = [s[1],s[2]-1,s[5],s[0],1000,'+',s[2]-1,s[5],'255,0,0',2]
 
+
         sz1 = s[3]-s[2] + 1
         sz2 = s[5]-s[4] + 1
-        nl.append('%i,%i,' % (sz1,sz2))
-        st1 = s[2] - s[2]
-        st2 = s[4] - s[2]
-        nl.append('%i,%i' % (st1,st2))
+        
+        if sz2 <= sz1:
+            # just make it one end ...
+            #sz1 = s[3]-s[2] + 1
+            sz1 = nl[2] - nl[1]
+            
+            nl.append('%i,' % (sz1))
+            st1 = s[2] - s[2]
+            nl.append('%i' % (st1))
+            nl[9] = 1 # make just 1 end
+        else:
+            nl.append('%i,%i,' % (sz1,sz2))
+            st1 = s[2] - s[2]
+            st2 = s[4] - s[2]
+            nl.append('%i,%i' % (st1,st2))
+            
+        # check to see if len of blocks overlaps...
+        if st2 <= sz1:
+            #need to change to just block 1
+            nl[9] = 1
+            sz1 = nl[2] - nl[1]
+            nl[10] = '%i,' % (sz1)
+            nl[11] = '0'
+                                                 
+        
+        
+        
         nl = [str(j) for j in nl]
         nl = '\t'.join(nl) + '\n'
         if sz > 5000000:
@@ -250,10 +274,35 @@ for s in inverList:
 
     sz1 = s[3]-s[2] + 1
     sz2 = s[5]-s[4] + 1
-    nl.append('%i,%i,' % (sz1,sz2))
-    st1 = s[2] - s[2]
-    st2 = s[4] - s[2]
-    nl.append('%i,%i' % (st1,st2))
+    
+    if sz2 <= sz1:
+        # just make it one end ...
+        #sz1 = s[3]-s[2] + 1
+        sz1 = nl[2] - nl[1]
+
+
+        nl.append('%i,' % (sz1))
+        st1 = s[2] - s[2]
+        nl.append('%i' % (st1))
+        nl[9] = 1 # make just 1 end
+    else:
+        nl.append('%i,%i,' % (sz1,sz2))
+        st1 = s[2] - s[2]
+        st2 = s[4] - s[2]
+        nl.append('%i,%i' % (st1,st2))
+
+
+    # check to see if len of blocks overlaps...
+    if st2 <= sz1:
+        #need to change to just block 1
+        nl[9] = 1
+        sz1 = nl[2] - nl[1]
+        nl[10] = '%i,' % (sz1)
+        nl[11] = '0'
+
+
+
+        
     nl = [str(j) for j in nl]
     nl = '\t'.join(nl) + '\n'
     if sz > 5000000:
@@ -269,12 +318,34 @@ for s in eversionList:
 
     sz1 = s[3]-s[2] + 1
     sz2 = s[5]-s[4] + 1
-    nl.append('%i,%i,' % (sz1,sz2))
-    st1 = s[2] - s[2]
-    st2 = s[4] - s[2]
-    nl.append('%i,%i' % (st1,st2))
+
+    if sz2 <= sz1:
+        # just make it one end ...
+        #sz1 = s[3]-s[2] + 1
+        sz1 = nl[2] - nl[1]
+        nl.append('%i,' % (sz1))
+        st1 = s[2] - s[2]
+        nl.append('%i' % (st1))
+        nl[9] = 1 # make just 1 end
+    else:
+        nl.append('%i,%i,' % (sz1,sz2))
+        st1 = s[2] - s[2]
+        st2 = s[4] - s[2]
+        nl.append('%i,%i' % (st1,st2))
+
+    # check to see if len of blocks overlaps...
+    if st2 <= sz1:
+        #need to change to just block 1
+        nl[9] = 1
+        sz1 = nl[2] - nl[1]
+        nl[10] = '%i,' % (sz1)
+        nl[11] = '0'
+
+
+
     nl = [str(j) for j in nl]
     nl = '\t'.join(nl) + '\n'
+
     if sz > 5000000:
          outFile3.write(nl)
     else:
