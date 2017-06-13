@@ -95,6 +95,8 @@ for line in inFile:
     line = line.split('\t')
 
     cloneName = line[0]
+    
+    
     c1 = line[1]
     if c1 != '.':
        s1 = int(line[2])
@@ -209,6 +211,7 @@ outFile2 = open(disconcordantFileName,'w')
 outFile3 = open(largedisconcordantFileName,'w')
 
 for s in pairedList:
+    
     sz = s[5] - s[2] + 1
     if sz >= lc and sz <= uc:
         nl = [s[1],s[2]-1,s[5],s[0],1000,'+',s[2]-1,s[5],'0,0,0',2]
@@ -230,12 +233,11 @@ for s in pairedList:
 
         sz1 = s[3]-s[2] + 1
         sz2 = s[5]-s[4] + 1
-        
-        if sz2 <= sz1:
+        # check to see if start of read 2 is <= end of read1
+        if s[4] <= s[3]:
             # just make it one end ...
             #sz1 = s[3]-s[2] + 1
-            sz1 = nl[2] - nl[1]
-            
+            sz1 = nl[2] - nl[1]            
             nl.append('%i,' % (sz1))
             st1 = s[2] - s[2]
             nl.append('%i' % (st1))
@@ -246,15 +248,6 @@ for s in pairedList:
             st2 = s[4] - s[2]
             nl.append('%i,%i' % (st1,st2))
             
-        # check to see if len of blocks overlaps...
-        if st2 <= sz1:
-            #need to change to just block 1
-            nl[9] = 1
-            sz1 = nl[2] - nl[1]
-            nl[10] = '%i,' % (sz1)
-            nl[11] = '0'
-                                                 
-        
         
         
         nl = [str(j) for j in nl]
@@ -275,7 +268,7 @@ for s in inverList:
     sz1 = s[3]-s[2] + 1
     sz2 = s[5]-s[4] + 1
     
-    if sz2 <= sz1:
+    if s[4] <= s[3]:
         # just make it one end ...
         #sz1 = s[3]-s[2] + 1
         sz1 = nl[2] - nl[1]
@@ -290,17 +283,6 @@ for s in inverList:
         st1 = s[2] - s[2]
         st2 = s[4] - s[2]
         nl.append('%i,%i' % (st1,st2))
-
-
-    # check to see if len of blocks overlaps...
-    if st2 <= sz1:
-        #need to change to just block 1
-        nl[9] = 1
-        sz1 = nl[2] - nl[1]
-        nl[10] = '%i,' % (sz1)
-        nl[11] = '0'
-
-
 
         
     nl = [str(j) for j in nl]
@@ -319,7 +301,7 @@ for s in eversionList:
     sz1 = s[3]-s[2] + 1
     sz2 = s[5]-s[4] + 1
 
-    if sz2 <= sz1:
+    if s[4] <= s[3]:
         # just make it one end ...
         #sz1 = s[3]-s[2] + 1
         sz1 = nl[2] - nl[1]
@@ -332,15 +314,6 @@ for s in eversionList:
         st1 = s[2] - s[2]
         st2 = s[4] - s[2]
         nl.append('%i,%i' % (st1,st2))
-
-    # check to see if len of blocks overlaps...
-    if st2 <= sz1:
-        #need to change to just block 1
-        nl[9] = 1
-        sz1 = nl[2] - nl[1]
-        nl[10] = '%i,' % (sz1)
-        nl[11] = '0'
-
 
 
     nl = [str(j) for j in nl]
