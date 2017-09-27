@@ -209,7 +209,7 @@ samFile = pysam.AlignmentFile(options.bam,'r')
 outFileName = options.bam + '.readpairtable'
 outFile = open(outFileName,'w')
 
-nl = ['#cloneName','chrom','start','end','mapQ','dir','alignedBp','fracMatch','alignedBpQ30','fracMatchQ30','chrom','start','end','dir','alignedBp','fracMatch','alignedBpQ30','fracMatchQ30']
+nl = ['#cloneName','chrom','start','end','mapQ','dir','alignedBp','fracMatch','alignedBpQ30','fracMatchQ30','chrom','start','end','mapQ','dir','alignedBp','fracMatch','alignedBpQ30','fracMatchQ30']
 nl = '\t'.join(nl) + '\n'
 outFile.write(nl)
 
@@ -223,6 +223,8 @@ for read in samFile:
         continue
     if read.is_supplementary is True:
         continue
+
+
     
     if len(readCache) == 0:
         readCache.append(read)
