@@ -30,39 +30,30 @@ def convert_from_unk(unkInfo,p):
              return newC,newPos
      print 'did not find it..., try alter by 1'
      print p
-
-     p = p -1
-     for i in unkInfo:
-         if p >= i[1] and p <= i[2]:             
-             newC = i[3]
-             newPos = p - i[1] + 1
-             return newC,newPos
-
-
-     print 'did not find it..., try alter by 1'
-     print p
-
-     p = p -1
-     for i in unkInfo:
-         if p >= i[1] and p <= i[2]:             
-             newC = i[3]
-             newPos = p - i[1] + 1
-             return newC,newPos
+     op = p
+     
+     for i in range(20):
+         p = p -1
+         for i in unkInfo:
+             if p >= i[1] and p <= i[2]:             
+                 newC = i[3]
+                 newPos = p - i[1] + 1
+                 return newC,newPos
 
 
-     print 'did not find it..., try alter by 1'
-     print p
+     print 'try other dir!'
+     p = op
+     for i in range(20):
+         p = p +1
+         for i in unkInfo:
+             if p >= i[1] and p <= i[2]:             
+                 newC = i[3]
+                 newPos = p - i[1] + 1
+                 return newC,newPos
 
-     p = p -1
-     for i in unkInfo:
-         if p >= i[1] and p <= i[2]:             
-             newC = i[3]
-             newPos = p - i[1] + 1
-             return newC,newPos
-
-
-     sys.exit()            
-             
+     print 'did not find it..., try alter by 1 -- FAIL'
+     print op,p
+     sys.exit()                         
 #############################################################################
 
 #setup unk
